@@ -1,0 +1,133 @@
+Actividad 2
+
+package Actividad2lab05;
+
+public class Automovil {
+	
+	private String placa;
+	private int numPuertas;
+	private String marca;
+	private String modelo;
+	private Motor motor;
+	
+	public Automovil(String placa, int numPuertas, String marca, String modelo) {
+		super();
+		this.placa = placa;
+		this.numPuertas = numPuertas;
+		this.marca = marca;
+		this.modelo = modelo;
+	}
+	
+	public String getPlaca() {
+		return placa;
+	}
+
+	public Motor getMotor() {
+		return motor;
+	}
+
+	public void setMotor(Motor motor) {
+		this.motor = motor;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+
+	public int getNumPuertas() {
+		return numPuertas;
+	}
+
+	public void setNumPuertas(int numPuertas) {
+		this.numPuertas = numPuertas;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+	
+	public String toString() {
+	    if (motor != null) {
+	        return "Automóvil con motor\n" +
+	                "Placa: " + placa + "\n" +
+	                "No. Motor: " + motor.getNumMotor() + "\n" +
+	                "No. Puertas: " + numPuertas + "\n" +
+	                "Marca: " + marca + "\n" +
+	                "Modelo: " + modelo + "\n" +
+	                "RPM: " + motor.getRevolucionesPorMin();
+	    } else {
+	        return "Automóvil sin motor\n" +
+	                "Placa: " + placa + "\n" +
+	                "No. Puertas: " + numPuertas + "\n" +
+	                "Marca: " + marca + "\n" +
+	                "Modelo: " + modelo;
+	    }
+	}
+
+}
+
+package Actividad2lab05;
+
+public class Motor {
+	
+	private int numMotor;
+	private int revolucionesPorMin;
+	
+	
+	public Motor(int numMotor, int revolucionesPorMin) {
+		super();
+		this.numMotor = numMotor;
+		this.revolucionesPorMin = revolucionesPorMin;
+	}
+	
+	public int getNumMotor() {
+		return numMotor;
+	}
+
+	public void setNumMotor(int numMotor) {
+		this.numMotor = numMotor;
+	}
+
+	public int getRevolucionesPorMin() {
+		return revolucionesPorMin;
+	}
+
+	public void setRevolucionesPorMin(int revolucionesPorMin) {
+		this.revolucionesPorMin = revolucionesPorMin;
+	}
+	
+	public String toString() {
+	    return "No. Motor: " + numMotor + "\nRPM: " + revolucionesPorMin;
+	}
+
+}
+
+package Actividad2lab05;
+
+public class TestAgregacion {
+    public static void main(String[] args) {
+    	
+        Motor motor1 = new Motor(12345, 3000);
+        Automovil automovil1 = new Automovil("ABC123", 4, "Toyota", "Corolla");
+
+        automovil1.setMotor(motor1);
+
+        System.out.println("Datos del Automóvil:");
+        System.out.println(automovil1.toString());
+
+        System.out.println("\nDatos del Motor:");
+        System.out.println(motor1.toString()); 
+    }
+}
