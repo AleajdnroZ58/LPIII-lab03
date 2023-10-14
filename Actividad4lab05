@@ -1,0 +1,124 @@
+Actividad 4
+
+package Actividad4lab05;
+
+public class Asalariado {
+
+	private String nombre;
+	private long DNI;
+	private int diasVacaciones;
+	private double salarioBase;
+	
+	public Asalariado(String nombre,long DNI,int diasVacaciones, double salarioBase) {
+		this.nombre=nombre;
+		this.DNI=DNI;
+		this.diasVacaciones=diasVacaciones;
+		this.salarioBase = salarioBase;
+	}
+	
+	public double calcularSalario() {
+        return salarioBase;
+    }
+	
+	public String getNombre() {
+		return this.nombre;
+	}
+	
+	public void setNombre(String nuevo_nombre) {
+		this.nombre = nuevo_nombre;
+	}
+	
+	public long getDNI() {
+		return this.DNI;
+	}
+	
+	public void setDNI(long nuevo_DNI) {
+		this.DNI = nuevo_DNI;
+	}
+	
+	public int getDiasVacaciones() {
+		return this.diasVacaciones;
+	}
+	
+	public void setDiasVacaciones(int nuevo_diasVacaciones) {
+		this.diasVacaciones = nuevo_diasVacaciones;
+	}
+	
+	@Override
+	public String toString() {
+	    return "Dni: " + this.getDNI() + "\n" +
+	           "Nombre: " + this.getNombre() + "\n" +
+	           "Vacaciones: " + this.getDiasVacaciones() + " días\n" +
+	           "Salario: " + this.calcularSalario() + "\n" +
+	           "Empleado de";
+	}
+
+}
+
+package Actividad4lab05;
+
+public class EmpleadoDistribucion extends Asalariado{
+
+	private String zona;
+	
+	public EmpleadoDistribucion(String nombre, long DNI, int diasVacaciones, String zona, double salarioBase) {
+		super(nombre,DNI,diasVacaciones, salarioBase);
+		this.zona=zona;
+	}
+
+	public String getZona() {
+		return this.zona;
+	}
+
+	public void setZona(String nueva_zona) {
+		this.zona = nueva_zona;
+	}
+	
+	@Override
+    public double calcularSalario() {
+        double salarioBase = super.calcularSalario();
+        return salarioBase * 1.10;
+    }
+}
+
+package Actividad4lab05;
+
+public class EmpleadoProduccion extends Asalariado{
+	
+	private String turno;
+
+	public EmpleadoProduccion(String nombre, long DNI, int diasVacaciones, String turno, double salarioBase) {
+		super(nombre,DNI,diasVacaciones,salarioBase);
+		this.turno=turno;
+	}
+
+	public String getTurno() {
+		return this.turno;
+	}
+
+	public void setTurno(String nuevo_turno) {
+		this.turno = nuevo_turno;
+	}
+	
+	@Override
+    public double calcularSalario() {
+        double salarioBase = super.calcularSalario();
+        return salarioBase * 1.15;
+    }
+}
+
+package Actividad4lab05;
+
+public class TestHerencia {
+
+    public static void main(String[] args) {
+        Asalariado empleado1 = new Asalariado("Manuel Cortina", 12345678, 28, 4000.0);
+        EmpleadoProduccion empleado2 = new EmpleadoProduccion("Juan Mota", 55333222, 30, "noche", 3500.0);
+        EmpleadoDistribucion empleado3 = new EmpleadoDistribucion("Antonio Camino", 55333666, 35, "Granada", 3800.0);
+
+        System.out.println(empleado1.toString());
+        System.out.println(empleado2.toString());
+        System.out.println(empleado3.toString());
+    }
+}
+
