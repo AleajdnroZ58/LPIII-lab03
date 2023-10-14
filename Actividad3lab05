@@ -1,0 +1,172 @@
+Actividad 3
+
+package Actividad3lab05;
+
+import java.util.ArrayList;
+
+public class Banco {
+    private String nombre;
+    private ArrayList<Persona> clientes;
+
+    public Banco(String nombre) {
+        this.nombre = nombre;
+        this.clientes = new ArrayList<>();
+    }
+    
+    public Persona darBajaCliente(Persona persona) {
+        if (clientes.contains(persona)) {
+            int index = clientes.indexOf(persona);
+            Persona clienteEliminado = clientes.remove(index);
+            if (index < clientes.size()) {
+                Persona ultimoCliente = clientes.get(clientes.size() - 1);
+                clientes.set(index, ultimoCliente);
+            }
+            return clienteEliminado;
+        }
+        return null;
+    }
+
+    public ArrayList<Persona> clienteTipo(char tipo) {
+        ArrayList<Persona> clientesTipo = new ArrayList<>();
+        for (Persona cliente : clientes) {
+            if (cliente.getTipo() == tipo) {
+                clientesTipo.add(cliente);
+            }
+        }
+        return clientesTipo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void agregarCliente(Persona persona) {
+        if (!clientes.contains(persona)) {
+            clientes.add(persona);
+        }
+    }
+
+    public boolean buscarCliente(Persona persona) {
+        return clientes.contains(persona);
+    }
+
+    public ArrayList<Persona> getClientes() {
+        return clientes;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Banco: ").append(nombre).append("\n");
+        for (Persona cliente : clientes) {
+            stringBuilder.append(cliente.toString()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+}
+
+package Actividad3lab05;
+
+public class Persona {
+    private String nombre;
+    private char tipo;
+
+    public Persona(String nombre, char tipo) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public char getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Persona persona = (Persona) obj;
+        return tipo == persona.tipo && nombre.equals(persona.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.hashCode() + Character.hashCode(tipo);
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "nombre='" + nombre + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
+}
+
+package Actividad3lab05;
+
+import java.util.ArrayList;
+
+public class TestAsociacion {
+
+    public static void main(String[] args) {
+        Banco banco = new Banco("Banco UCSM");
+
+        Persona cliente1 = new Persona("Daniel", 'A');
+        Persona cliente2 = new Persona("Alejandro", 'B');
+        Persona cliente3 = new Persona("Alagon", 'A');
+        Persona cliente4 = new Persona("Cutiri", 'C');
+
+        banco.agregarCliente(cliente1);
+        banco.agregarCliente(cliente2);
+        banco.agregarCliente(cliente3);
+        banco.agregarCliente(cliente4);
+
+        Persona clienteBuscado = new Persona("Juan", 'A');
+        boolean encontrado = banco.buscarCliente(clienteBuscado);
+
+        if (encontrado) {
+            System.out.println("El cliente " + clienteBuscado.getNombre() + " fue encontrado en el banco.");
+        } else {
+            System.out.println("El cliente " + clienteBuscado.getNombre() + " no fue encontrado en el banco.");
+        }
+
+        System.out.println("Clientes del banco:");
+        System.out.println(banco.toString());
+
+        Persona clienteEliminado = banco.darBajaCliente(cliente2);
+        if (clienteEliminado != null) {
+            System.out.println("Cliente eliminado: " + clienteEliminado.getNombre());
+        } else {
+            System.out.println("El cliente no se encontró para dar de baja.");
+        }
+
+        char tipoCliente = 'A';
+        ArrayList<Persona> clientesTipoA = banco.clienteTipo(tipoCliente);
+        System.out.println("Clientes de tipo " + tipoCliente + ":");
+        for (Persona cliente : clientesTipoA) {
+            System.out.println(cliente.toString());
+        }
+    }
+}
+
+
